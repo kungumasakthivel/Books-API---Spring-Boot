@@ -1,19 +1,17 @@
-package com.example.goodreads;
+package com.example.goodreads.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-
-import com.example.goodreads.BookService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 
+import com.example.goodreads.service.BookH2Service;
+import com.example.goodreads.model.Book;
+
 @RestController
-class BookController {
-    BookService bookService = new BookService();
+public class BookController {
+
+    @Autowired
+    public BookH2Service bookService;
 
     @GetMapping("/books")
     public ArrayList<Book> getBooks() {
@@ -28,7 +26,6 @@ class BookController {
     @PostMapping("/books")
     public Book addBook(@RequestBody Book book) {
         return bookService.addBook(book);
-
     }
 
     @PutMapping("/books/{bookId}")

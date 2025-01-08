@@ -1,8 +1,10 @@
-package com.example.goodreads;
+package com.example.goodreads.service;
 
 import java.util.*;
-import com.example.goodreads.Book;
-import com.example.goodreads.BookRepository;
+
+import com.example.goodreads.model.Book;
+import com.example.goodreads.repository.BookRepository;
+
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
@@ -43,7 +45,7 @@ public class BookService implements BookRepository {
         return book;
 
     }
-    
+
     @Override
     public Book updateBook(int bookId, Book book) {
         Book existingBook = hmap.get(bookId);
@@ -59,14 +61,13 @@ public class BookService implements BookRepository {
         return existingBook;
 
     }
-    
+
     @Override
     public void deleteBook(int bookId) {
         Book book = hmap.get(bookId);
         if (book == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        else {
+        } else {
             hmap.remove(bookId);
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
 
